@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>dongnetsun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--r:12px;--f:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+:root{--bg:#000;--s1:#0d0d0d;--s2:#171717;--bd:#262626;--tx:#fafafa;--mu:#8c8c8c;--tai:#7ab0ff;--xiu:#ff7a7a;--ok:#4cc38a;--no:#f0605d;--bao:#d9b44a}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;font-family:var(--f)}
+[hidden]{display:none!important}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--bg);color:var(--tx);font-size:13px;line-height:1.45;font-variant-numeric:tabular-nums;padding-bottom:calc(72px + env(safe-area-inset-bottom));user-select:none;-webkit-user-select:none}
+button{font:inherit;color:inherit}
+.hdr{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--bd);padding:calc(10px + env(safe-area-inset-top)) 16px 0}
+.brand{display:flex;align-items:center;justify-content:space-between;height:30px}
+.brand b{font-size:16px;font-weight:700;letter-spacing:-.02em}
+.brand span{font-size:11px;color:var(--mu);display:flex;align-items:center}
+.live{width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:6px}
+.tabs{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;margin:4px -16px 0;padding:0 16px}
+.tabs::-webkit-scrollbar,.sub::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:11px 0 10px;border:0;background:none;color:var(--mu);font-size:13px;font-weight:600;border-bottom:2px solid transparent;cursor:pointer}
+.tab.on{color:var(--tx);border-bottom-color:var(--tx)}
+.tab.off:after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--no);margin-left:6px;vertical-align:2px}
+.sub{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0}
+.chip{flex:none;padding:6px 13px;border-radius:99px;border:1px solid var(--bd);background:none;color:var(--mu);font-size:12px;font-weight:600;cursor:pointer}
+.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.chip.off:after{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--no);margin-left:6px;vertical-align:1px}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:12px;animation:fi .25s ease-out}
+@keyframes fi{from{opacity:0}}
+.k{display:flex;justify-content:space-between;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.pred{padding:18px}
+.pv{display:flex;align-items:baseline;justify-content:space-between;margin-top:10px}
+.pw{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.md{font-size:12px;font-weight:600;color:var(--mu)}
+.tai{color:var(--tai)}.xiu{color:var(--xiu)}.bao{color:var(--bao)}.ok{color:var(--ok)}.no{color:var(--no)}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid var(--bd)}
+.kv span{display:block;font-size:11px;color:var(--mu)}
+.kv b{display:block;font-size:16px;font-weight:600;margin-top:2px}
+.kv small{display:block;font-size:11px;color:var(--mu);margin-top:1px}
+.mk{margin-top:16px}
+.mkh{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin-bottom:6px}
+.mkh b{font-weight:600}
+.mkb{display:flex;height:4px;border-radius:4px;overflow:hidden;background:var(--s2)}
+.mkb i{display:block;height:100%}.mkb .t{background:var(--tai)}.mkb .x{background:var(--xiu)}
+.alg{margin-top:16px}
+.vt{display:grid;grid-template-columns:1fr 64px 96px;gap:8px;padding:8px 0;border-top:1px solid var(--bd);font-size:12px;font-weight:600}
+.vt b{font-weight:700}
+.vt span:last-child{text-align:right;color:var(--mu);font-weight:400}
+.meta{margin-top:12px;font-size:12px;color:var(--mu)}
+.res{display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
+.tot{font-size:30px;font-weight:700;letter-spacing:-.02em;margin-top:6px;line-height:1.1}
+.tot span{font-size:16px;font-weight:600;margin-left:8px}
+.ds{display:inline-flex;gap:5px}
+.d{width:22px;height:22px;border-radius:6px;background:#f4f4f5;border:1px solid rgba(0,0,0,.18);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:3px}
+.d i{width:3.6px;height:3.6px;border-radius:50%;place-self:center}
+.d i.on{background:#18181b}.d.o i.on{background:#d92d20;width:5px;height:5px}
+.res .d{width:38px;height:38px;border-radius:9px;padding:5px}
+.res .d i{width:6.5px;height:6.5px}.res .d.o i.on{width:9px;height:9px}
+.chart{padding:16px 18px}
+.sp{width:100%;height:56px;display:block;margin:10px 0 8px}
+.seg{display:flex;gap:4px;margin:4px 0 10px}
+.seg button{padding:6px 13px;border-radius:99px;border:1px solid var(--bd);background:none;color:var(--mu);font-size:12px;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--s2);color:var(--tx);border-color:var(--mu)}
+.list{overflow:hidden}
+.row{display:grid;grid-template-columns:1.2fr 1.15fr .95fr .95fr 34px;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bd);font-weight:600}
+.row:last-child{border-bottom:0}
+.row.hd{padding:10px 16px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);background:var(--s2)}
+.row b{font-weight:600}
+.row small{display:block;font-size:11px;font-weight:400;color:var(--mu);margin-top:1px}
+.row u{text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--mu);border:1px solid var(--bd);border-radius:4px;padding:0 4px}
+.row>div:last-child{text-align:right;font-size:19px;line-height:1}
+.dc small{margin-top:3px}
+.note{padding:4px 2px 0;font-size:11px;color:var(--mu);line-height:1.6}
+.msg{padding:48px 12px;text-align:center;color:var(--mu);font-weight:500}
+.sk{height:110px;border-radius:var(--r);background:var(--s1);border:1px solid var(--bd);margin-bottom:12px;animation:pl 1.4s ease-in-out infinite}
+@keyframes pl{50%{opacity:.5}}
+.foot{max-width:640px;margin:0 auto;padding:4px 18px 24px;font-size:11px;color:var(--mu);line-height:1.6}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:var(--bg);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom)}
+.bar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0 9px;border:0;background:none;color:var(--mu);font-size:11px;font-weight:600;cursor:pointer}
+.bar button:active{color:var(--tx)}
+.bar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:none;align-items:flex-end;justify-content:center}
+.ov.on{display:flex}
+.sheet{width:100%;max-width:560px;max-height:84vh;overflow-y:auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom));border-radius:16px 16px 0 0;background:var(--s1);border:1px solid var(--bd);border-bottom:0;animation:sl .22s ease-out}
+@keyframes sl{from{transform:translateY(24px);opacity:0}}
+.sheet h3{font-size:15px;font-weight:700;margin-bottom:14px}
+.sheet h4{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);margin:16px 0 8px}
+.btn{width:100%;margin-top:16px;padding:12px;border-radius:10px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-weight:600;font-size:13px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gt{padding:12px 6px;border-radius:10px;border:1px solid var(--bd);background:none;font-size:12px;font-weight:600;cursor:pointer}
+.gt.cur{border-color:var(--tx);background:var(--s2)}
+#gq,#aq{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:16px;outline:0;user-select:text;-webkit-user-select:text}
+.lb{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.lbn{font-size:13px;font-weight:600}.lbn small{display:block;font-size:11px;font-weight:400;color:var(--mu);margin-top:2px}
+.lbr{text-align:right;font-size:16px;font-weight:700}.lbr small{display:block;font-size:11px;font-weight:400;color:var(--mu)}
+.lbb{grid-column:1/-1;position:relative;height:4px;border-radius:4px;background:var(--s2);margin-top:6px}
+.lbb i{display:block;height:100%;border-radius:4px;background:var(--tx)}
+.lbb u{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--mu)}
+.sum{text-align:center;padding:6px 0 14px}.sum b{display:block;font-size:34px;font-weight:700;letter-spacing:-.02em;margin-top:4px}
+.bg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bt{padding:12px;cursor:pointer;margin:0}
+.bh{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.bh small{font-size:10px;color:var(--mu)}
+.bpm{display:grid;grid-auto-flow:column;grid-template-rows:repeat(6,10px);grid-auto-columns:10px;gap:2px;margin:10px 0 8px;padding:5px;border-radius:6px;background:#f1ede2;justify-content:start;min-height:82px;overflow:hidden}
+.bpm i,.bp i{border-radius:50%;display:block}
+.bpm .P,.bp .P,.b3 .P{background:#2f6fe0}.bpm .B,.bp .B,.b3 .B{background:#d93a3a}.bpm .T,.bp .T,.b3 .T{background:#1f9d5b}
+.b3{display:flex;height:4px;border-radius:4px;overflow:hidden;background:var(--s2)}
+.b3 i{display:block;height:100%}
+.bf{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-top:9px;font-size:12px;font-weight:600}
+.bf small{font-size:10px;color:var(--mu);font-weight:400;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdx.P{color:var(--tai)}.pdx.B{color:var(--xiu)}.pdx.none{color:var(--mu);font-weight:500}
+.bp,.br{display:grid;grid-template-rows:repeat(6,20px);grid-auto-columns:20px;gap:3px;overflow-x:auto;padding:8px;border-radius:8px;background:#f1ede2}
+.bp{grid-auto-flow:column}
+.bp i{width:20px;height:20px;color:#fff;font-style:normal;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ring{width:18px;height:18px;border-radius:50%;border:3px solid;position:relative;font-style:normal;font-size:8px;font-weight:700;color:#1f9d5b;display:flex;align-items:center;justify-content:center}
+.ring.P{border-color:#2f6fe0}.ring.B{border-color:#d93a3a}
+.ring.tie:after{content:"";position:absolute;left:-3px;right:-3px;top:50%;height:2px;margin-top:-1px;background:#1f9d5b;transform:rotate(-45deg)}
+.hist{font-size:16px;line-height:1.55;letter-spacing:2px;word-break:break-all;display:block}
+.pl{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12px;font-weight:700;background:var(--s2);border:1px solid var(--bd)}
+@supports(background:color-mix(in srgb,red 10%,blue)){.pl.tai{background:color-mix(in srgb,var(--tai) 16%,transparent);border-color:color-mix(in srgb,var(--tai) 40%,transparent)}.pl.xiu{background:color-mix(in srgb,var(--xiu) 16%,transparent);border-color:color-mix(in srgb,var(--xiu) 40%,transparent)}.pl.bao{background:color-mix(in srgb,var(--bao) 16%,transparent)}}
+.chk{margin-top:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pred.pt{border-left:3px solid var(--tai)}.pred.px{border-left:3px solid var(--xiu)}
+.d{width:24px;height:24px}.d i{width:4px;height:4px}.d.o i.on{width:5.5px;height:5.5px}
+.ep{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd)}
+.ep b{display:block;font-size:13px}
+.ep code{display:block;font:12px ui-monospace,Menlo,monospace;color:var(--mu);margin-top:2px;user-select:text;-webkit-user-select:text;word-break:break-all}
+.ep small{display:block;font-size:10px;color:var(--mu);margin-top:2px}
+.eb{display:flex;gap:6px;flex:none}
+.eb button{padding:7px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-size:11px;font-weight:600;cursor:pointer}
+.warn{padding:10px 12px;border:1px solid var(--bao);border-radius:10px;color:var(--bao);font-size:12px;font-weight:600;margin-bottom:10px;line-height:1.5}
+.sh{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);margin:16px 2px 8px}
+.row.b4{grid-template-columns:1.3fr 1fr 1fr 34px}
+.seg.vw{margin-bottom:6px}
+.tabs{position:relative}
+.tab.on{border-bottom-color:transparent}
+.ind{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--tx);border-radius:2px;transition:transform .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1)}
+.tab{transition:color .2s}
+.chip{transition:background .2s,color .2s,border-color .2s,transform .15s}
+.chip:active,.tab:active,.btn:active,.gt:active,.seg button:active{transform:scale(.95)}
+.live{animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(62,207,142,.55)}70%,100%{box-shadow:0 0 0 7px rgba(62,207,142,0)}}
+.rf{margin-left:8px;width:26px;height:26px;border-radius:50%;border:1px solid var(--bd);background:none;color:var(--mu);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.rf svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rf.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pg{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--tx);opacity:.5;transform-origin:left;transform:scaleX(0)}
+.pg.go{animation:pg 8s linear forwards}
+@keyframes pg{to{transform:scaleX(1)}}
+.anim .card,.anim .seg{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.anim .card:nth-child(2){animation-delay:.06s}.anim .card:nth-child(3){animation-delay:.12s}.anim .card:nth-child(4){animation-delay:.18s}
+.anim .list .row{animation:rise .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*28ms + .2s)}
+.anim .bt{animation:rise .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*30ms)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.pw.chg{animation:flip .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes flip{from{opacity:0;transform:translateY(-12px) scale(.9)}}
+.res.roll .d{animation:rl .85s cubic-bezier(.2,.8,.3,1) both}
+.res.roll .d:nth-child(2){animation-delay:.08s}.res.roll .d:nth-child(3){animation-delay:.16s}
+@keyframes rl{0%{transform:rotate(0) translateY(-20px) scale(.5);opacity:0}65%{transform:rotate(390deg) translateY(3px) scale(1.1);opacity:1}100%{transform:rotate(360deg)}}
+.row.fresh{animation:fr 1.8s ease-out}
+@keyframes fr{from{background:rgba(127,127,127,.4)}}
+.anim .hist span{display:inline-block;animation:pop .4s cubic-bezier(.2,.8,.3,1) both}
+@keyframes pop{from{transform:scale(0)}}
+.ov{display:flex;visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}
+.ov.on{visibility:visible;opacity:1}
+.sheet{animation:none;transform:translateY(30px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.ov.on .sheet{transform:none}
+.bt{transition:transform .15s}
+.ts{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,10px);background:var(--tx);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:90}
+.ts.on{opacity:1;transform:translate(-50%,0)}
+.seg{flex-wrap:wrap}
+.ep{display:block;padding:0}
+.eh{display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer}
+.mt2{font:700 10px ui-monospace,Menlo,monospace;padding:3px 7px;border-radius:6px;background:var(--s2);border:1px solid var(--bd);color:var(--ok)}
+.en{flex:1;min-width:0}.en b{display:block;font-size:13px}
+.en code{overflow:hidden;text-overflow:ellipsis}
+.dt{width:8px;height:8px;border-radius:50%;background:var(--mu);flex:none}.dt.o{background:var(--ok)}.dt.f{background:var(--no)}
+.cv{width:18px;height:18px;stroke:var(--mu);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;flex:none}
+.ep.open .cv{transform:rotate(180deg)}
+.ex{display:none;padding:0 0 14px}
+.ep.open .ex{display:block;animation:open .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes open{from{opacity:0;transform:translateY(-6px)}}
+.url{font:12px ui-monospace,Menlo,monospace;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--bd);word-break:break-all;user-select:text;-webkit-user-select:text}
+.alt{display:block;margin-top:6px;font-size:11px;color:var(--mu)}
+.eb{flex-wrap:wrap;margin-top:10px}
+.eb button{padding:8px 12px;border-radius:9px;font-size:12px;transition:transform .15s}
+.eb button:active{transform:scale(.94)}
+.eb .pri{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.stt{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:var(--mu);font-weight:600}
+.stt b{font-weight:700}
+.stt button{margin-left:auto;padding:5px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);color:var(--tx);font-size:11px;font-weight:600;cursor:pointer}
+.js{margin-top:8px;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--bd);font:12px/1.55 ui-monospace,Menlo,monospace;overflow:auto;max-height:280px;user-select:text;-webkit-user-select:text;white-space:pre}
+.jk{color:var(--tai)}.jstr{color:var(--ok)}.jn{color:var(--bao)}.jb{color:var(--xiu)}
+.fd{margin:0 0 10px;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--mu)}
+.fd summary{cursor:pointer;font-weight:600;color:var(--tx)}
+.fd div{margin-top:8px;line-height:1.75}
+.fd code{color:var(--tx);font:12px ui-monospace,Menlo,monospace}
+#ova .sheet{max-height:92vh}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body oncontextmenu="return false">
+<header class="hdr">
+  <div class="brand"><b>dongnetsun</b><span><i class="live"></i><em id="gs" style="font-style:normal">Đang kết nối</em><button class="rf" id="rf" aria-label="Làm mới"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button></span></div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="sub" id="sub" hidden></div>
+  <div class="pg" id="pg"></div>
+</header>
+<main class="wrap" id="main"><div class="sk"></div><div class="sk" style="height:84px"></div><div class="sk" style="height:200px"></div></main>
+<footer class="foot">Dự đoán lấy từ nguồn bên thứ ba, hệ thống chỉ ghi nhận và đối chiếu với kết quả thật. Mỗi phiên là ngẫu nhiên, không có cách đoán chắc thắng; hãy nhìn tỉ lệ đúng thực tế thay vì độ tin cậy do nguồn tự báo.</footer>
+<nav class="bar">
+  <button id="dg"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Game</button>
+  <button id="da"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>API</button>
+  <button id="ds2"><svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V4M19 20v-6"/></svg>Xếp hạng</button>
+</nav>
+<div class="ov" id="ovg"><div class="sheet"><h3>Chọn game</h3><input id="gq" placeholder="Tìm game (vd: luck8, md5, sicbo)" autocomplete="off"><div id="gl"></div><button class="btn" id="gc">Đóng</button></div></div>
+<div class="ov" id="ova"><div class="sheet"><h3>API đầy đủ</h3><input id="aq" placeholder="Tìm đuôi API (vd: lc79, sicbo, bcr)" autocomplete="off"><p class="note" style="padding:10px 2px 0">Ghép đuôi vào tên miền của bạn. Mỗi đuôi trả JSON gồm: <code style="user-select:text">id, game, phien_truoc, xuc_xac, ket_qua, phien_hien_tai, du_doan, do_tin_cay_api, cau, ti_le_dung_thuc_te</code>. Riêng Baccarat trả danh sách bàn.</p><div id="al"></div><button class="btn" id="ac">Đóng</button></div></div>
+<div class="ov" id="ovs"><div class="sheet"><h3>Xếp hạng LIVE</h3><div id="sb"></div><button class="btn" id="sc">Đóng</button></div></div>
+<div class="ov" id="ovb"><div class="sheet"><h3 id="bth"></h3><div id="btb"></div><button class="btn" id="bc">Đóng</button></div></div>
+<div class="ts" id="ts"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+const LS={g:(k,d)=>{try{return localStorage.getItem(k)||d}catch(e){return d}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+const BN={P:'Con',B:'Cái',T:'Hòa'},SIG={M:'Mạnh',V:'Vừa',Y:'Yếu'};
+let cur=LS.g('dn_game','1'),timer=null,busy=false,lastKey='',lastD=null,flt='all',bacF='all',games=[],bac=[],bacLive={n:0,w:0};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+const pl=v=>v?`<span class="pl ${cls(v)}">${esc(v)}</span>`:'—';
+const cls=v=>v==='Tài'?'tai':v==='Xỉu'?'xiu':v==='Bão'?'bao':'';
+function chips(){
+  const m={},o=[];games.forEach(g=>{const b=g.brand||g.name;if(!m[b]){m[b]={name:b,list:[]};o.push(m[b])}m[b].list.push(g)});
+  const cg=games.find(g=>String(g.id)===cur),cb=cur==='bac'?'bac':(cg?(cg.brand||cg.name):'');
+  $('#tabs').innerHTML=o.map(b=>`<button class="tab${b.name===cb?' on':''}${b.list.every(g=>g.online===false)?' off':''}" data-b="${esc(b.name)}">${esc(b.name)}</button>`).join('')+`<button class="tab${cur==='bac'?' on':''}" data-id="bac">Baccarat</button><i class="ind" id="ind"></i>`;
+  const B=m[cb],sub=B&&B.list.length>1?B.list.map(g=>`<button class="chip${String(g.id)===cur?' on':''}${g.online===false?' off':''}" data-id="${g.id}">${esc(g.kind||g.name)}</button>`).join(''):'';
+  $('#sub').innerHTML=sub;$('#sub').hidden=!sub;
+  $$('.tab,.chip').forEach(b=>b.onclick=()=>{const id=b.dataset.id;if(id)return pick(id);const L=m[b.dataset.b].list,want=LS.g('dn_b_'+b.dataset.b,'');pick((L.find(g=>String(g.id)===want)||L[0]).id)});moveInd();
+}
+function loadGames(){fetch('/api/games').then(r=>r.json()).then(l=>{if(Array.isArray(l)&&l.length){games=l;chips()}}).catch(()=>{})}
+const skel=()=>{$('#main').innerHTML='<div class="sk"></div><div class="sk" style="height:84px"></div><div class="sk" style="height:200px"></div>'};
+function pick(id){cur=String(id);LS.s('dn_game',cur);const g=games.find(x=>String(x.id)===cur);if(g)LS.s('dn_b_'+(g.brand||g.name),cur);animOn=true;lastTop='';lastPredTxt='';lastKey='';chips();$('#gs').textContent='Đang tải';skel();const t=document.querySelector('.tab.on');if(t&&t.scrollIntoView)t.scrollIntoView({inline:'center',block:'nearest'});load();clearInterval(timer);timer=setInterval(load,8000)}
+const tick=()=>{const p=$('#pg');p.classList.remove('go');void p.offsetWidth;p.classList.add('go')};
+const stamp=()=>{$('#gs').textContent='Cập nhật '+new Date().toLocaleTimeString('vi-VN');tick()};
+function fail(){lastKey='';$('#gs').textContent='Bảo trì';$('#main').innerHTML='<div class="msg">Game đang bảo trì hoặc chưa có dữ liệu.<br><small>Tự thử lại sau 8 giây.</small></div>'}
+function load(){if(busy)return;busy=true;$('#rf').classList.add('spin');
+  const p=cur==='bac'?(bacView==='log'
+    ?fetch('/api/baccarat/log?limit=120').then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{bacLogData=d;const k=JSON.stringify(d)+'log';if(k!==lastKey){lastKey=k;drawBacLog()}stamp()})
+    :fetch('/api/baccarat').then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{if(!d||!d.tables||!d.tables.length)throw 0;bac=d.tables;bacLive=d.live||{n:0,w:0};bacMeta={updated:d.updated,ago:d.changed_ago,stale:d.stale,err:d.source_error};const k=JSON.stringify(bac.map(t=>[t.ket_qua,t.du_doan,t.live_n]))+bacF+(d.stale?1:0)+(d.source_error?1:0);if(k!==lastKey){lastKey=k;drawBac()}stamp()}))
+  :fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiId:+cur})}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{if(!d||((!d.rows||!d.rows.length)&&!d.next))throw 0;const k=JSON.stringify([d.next,d.stats,(d.rows||[]).slice(0,8)])+flt;if(k!==lastKey){lastKey=k;draw(d)}stamp()});
+  p.catch(fail).then(()=>{busy=false;$('#rf').classList.remove('spin')})}
+function die(n){const P={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]}[n]||[];let h=`<b class="d${n===1?' o':''}">`;for(let i=0;i<9;i++)h+=`<i${P.indexOf(i)>-1?' class="on"':''}></i>`;return h+'</b>'}
+const dice=a=>Array.isArray(a)&&a.length===3?`<span class="ds">${a.map(die).join('')}</span>`:'—';
+function spark(a){const W=200,H=50,n=a.length,d=a.map((v,i)=>`${i?'L':'M'}${(n>1?i*W/(n-1):0).toFixed(1)} ${(H-v*H/100).toFixed(1)}`).join(' ');
+  return `<svg class="sp" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><line x1="0" x2="${W}" y1="${H/2}" y2="${H/2}" stroke-dasharray="3 3" stroke-width="1" vector-effect="non-scaling-stroke" style="stroke:var(--mu);opacity:.6"/><path d="${d} L${W} ${H} L0 ${H} Z" style="fill:var(--tx);opacity:.07"/><path d="${d}" fill="none" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" style="stroke:var(--tx)"/></svg>`}
+function patName(ps){const r=ps.map(x=>x.result).filter(v=>v==='Tài'||v==='Xỉu').slice(0,14),n=r.length;if(n<4)return '';
+  let a=1;while(a<n&&r[a]!==r[a-1])a++;if(a>=4)return '1-1 ×'+a;
+  if(n>=6&&r[0]===r[1]&&r[2]===r[3]&&r[4]===r[5]&&r[0]!==r[2]&&r[2]!==r[4])return '2-2';
+  if(n>=6&&r[0]===r[1]&&r[1]===r[2]&&r[3]===r[4]&&r[4]===r[5]&&r[0]!==r[3])return '3-3';
+  const m=Math.min(10,n),t=r.slice(0,m).filter(v=>v==='Tài').length;
+  if(t>=Math.ceil(m*.7))return `nghiêng Tài ${t}/${m}`;if(m-t>=Math.ceil(m*.7))return `nghiêng Xỉu ${m-t}/${m}`;return ''}
+function draw(d){
+  lastD=d;const topNow=(d.rows&&d.rows[0])?String(d.rows[0].phien):'',roll=!!(lastTop&&topNow&&topNow!==lastTop),ptxt=d.next?d.next.prediction+'|'+d.next.phien:'',predChg=!!(lastPredTxt&&ptxt&&ptxt!==lastPredTxt);lastTop=topNow;lastPredTxt=ptxt;const rows=d.rows||[],st=d.stats||{},nx=d.next,g=games.find(x=>String(x.id)===cur);
+  const n=st.n||0,w=st.w||0,pc=n?Math.round(w*100/n):null,sv=rows[0]?rows[0].result:'';
+  let sk=0;for(let i=0;i<rows.length&&rows[i].result===sv;i++)sk++;
+  const lvNew=rows.filter(r=>typeof r.isCorrect==='boolean');let ls=0;for(const r of lvNew){if(r.isCorrect!==lvNew[0].isCorrect)break;ls++}
+  let h='';
+  if(nx)h+=`<section class="card pred ${nx.prediction==='Tài'?'pt':nx.prediction==='Xỉu'?'px':''}"><div class="k"><span>${g?esc(g.brand+' · '+g.kind):'Dự đoán'}</span><span>Phiên #${esc(nx.phien)}</span></div>
+<div class="pv"><div class="pw ${cls(nx.prediction)}${predChg?' chg':''}">${esc(nx.prediction)}</div><div class="md">${nx.fresh?'Theo API dự đoán':'Dữ liệu đã cũ'}</div></div>
+<div class="kv"><div><span>Tỉ lệ đúng</span><b${pc===null?'':` data-n="${pc}" data-s="%" data-k="pc"`}>${pc===null?'—':pc+'%'}</b><small>${n?w+'/'+n+' phiên':'đang thu thập'}</small></div><div><span>Độ tin cậy API</span><b>${nx.conf?esc(nx.conf):'—'}</b></div><div><span>Chuỗi</span><b class="${cls(sv)}">${esc(sv||'—')} ×${sk}</b></div></div>
+${(nx.pattern||ls>=2)?`<div class="meta">${esc([nx.pattern,ls>=2&&(lvNew[0].isCorrect?'✅ Đúng':'❌ Sai')+' liên tiếp ×'+ls].filter(Boolean).join(' · '))}</div>`:''}</section>`;
+  else h+=`<section class="card pred"><div class="k"><span>${g?esc(g.brand+' · '+g.kind):'Dự đoán'}</span><span></span></div><div class="msg" style="padding:26px 0 10px">${d.hasPred?'Chưa nhận được dự đoán từ API.':'Game này chưa có API dự đoán, chỉ hiển thị lịch sử.'}</div></section>`;
+  if(rows[0])h+=`<section class="card res${roll?' roll':''}"><div><div class="k">Kết quả vừa ra · #${esc(rows[0].phien)}</div><div class="tot">${esc(rows[0].total||'—')}<span class="${cls(rows[0].result)}">${esc(rows[0].result)}</span></div>${rows[0].prediction?`<div class="chk">Dự đoán ${pl(rows[0].prediction)} ${rows[0].isCorrect===true?'✅ Đúng':rows[0].isCorrect===false?'❌ Sai':''}</div>`:''}</div>${dice(rows[0].dice)}</section>`;
+  const lv=lvNew.slice().reverse();let cw=0;const cum=lv.map((r,i)=>{if(r.isCorrect)cw++;return cw*100/(i+1)});
+  if(lv.length)h+=`<section class="card chart"><div class="k"><span>Đúng/sai gần đây</span><span>✅ ${cw} · ❌ ${lv.length-cw}</span></div>${cum.length>=4?spark(cum):'<div style="height:10px"></div>'}<div class="hist">${lv.slice(-30).map((r,i)=>`<span style="animation-delay:${i*18}ms">${r.isCorrect?'✅':'❌'}</span>`).join('')}</div></section>`;
+  h+=`<div class="seg" id="seg">${[['all','Tất cả'],['pred','Có dự đoán'],['wrong','❌ Sai']].map(x=>`<button data-f="${x[0]}" class="${flt===x[0]?'on':''}">${x[1]}</button>`).join('')}</div><section class="card list"><div class="row hd"><span>Phiên</span><span>Xúc xắc</span><span>Dự đoán</span><span>Kết quả</span><span style="text-align:right">Đ/S</span></div>`;
+  rows.forEach((r,ri)=>{if((flt==='pred'&&!r.prediction)||(flt==='wrong'&&r.isCorrect!==false))return;
+    h+=`<div class="row${roll&&ri===0?' fresh':''}" style="--i:${Math.min(ri,14)}"><div><b>#${esc(r.phien)}</b><small>${esc(r.time||'')}</small></div><div class="dc">${dice(r.dice)}<small>${esc(r.total||'')}</small></div><div>${pl(r.prediction)}</div><div>${pl(r.result)}</div><div>${r.isCorrect===true?'✅':r.isCorrect===false?'❌':''}</div></div>`});
+  $('#main').innerHTML=h+'</section><p class="note">✅ dự đoán đúng · ❌ dự đoán sai. Tỉ lệ đúng chỉ tính các dự đoán đã được ghi nhận TRƯỚC khi có kết quả, kể từ lúc hệ thống bắt đầu theo dõi. Dòng "—" nghĩa là hệ thống chưa kịp ghi dự đoán cho phiên đó.</p>';
+  $('#main').className=animOn?'anim':'';animOn=false;countUp('#main');
+  $$('#seg button').forEach(b=>b.onclick=()=>{flt=b.dataset.f;lastKey='';draw(lastD)});
+}
+const bar3=t=>{const n=t.con+t.cai+t.hoa||1;return `<div class="b3"><i class="P" style="width:${t.con*100/n}%"></i><i class="B" style="width:${t.cai*100/n}%"></i><i class="T" style="width:${t.hoa*100/n}%"></i></div>`};
+const miniPlate=r=>{const s=Math.max(0,(Math.floor((r.length-1)/6)-10)*6);return r.slice(s).split('').map(c=>`<i class="${c}"></i>`).join('')};
+const pdTxt=t=>t.du_doan?`<span class="pdx ${t.du_doan}">Dự đoán: ${BN[t.du_doan]}</span>`:'<span class="pdx none">Chưa có dự đoán</span>';
+function bigRoad(r){const occ={},beads=[];let col=0,row=0,sc=0,last=null,lb=null;
+  for(let i=0;i<r.length;i++){const c=r.charAt(i);
+    if(c==='T'){if(lb)lb.t++;continue}
+    if(c===last){if(row<5&&!occ[col+','+(row+1)])row++;else col++}
+    else{if(last!==null){sc++;while(occ[sc+',0'])sc++}col=sc;row=0}
+    occ[col+','+row]=1;lb={c,col,row,t:0};beads.push(lb);last=c}
+  return `<div class="br" id="brr">${beads.map(b=>`<i class="ring ${b.c}${b.t?' tie':''}" style="grid-row:${b.row+1};grid-column:${b.col+1}">${b.t>1?b.t:''}</i>`).join('')}</div>`}
+let bacView='lobby',bacLogData=null,bacMeta={};
+const bpl=s=>s?`<span class="pl ${s==='P'?'tai':s==='B'?'xiu':'bao'}">${BN[s]}</span>`:'—';
+const bacTabs=()=>`<div class="seg vw"><button data-v="lobby" class="${bacView==='lobby'?'on':''}">Sảnh bàn</button><button data-v="log" class="${bacView==='log'?'on':''}">Xem lại đúng/sai</button></div>`;
+function bacBind(){$$('.seg.vw button').forEach(b=>b.onclick=()=>{bacView=b.dataset.v;lastKey='';$('#main').innerHTML='<div class="sk"></div><div class="sk" style="height:200px"></div>';load()})}
+function bacBanner(){const m=bacMeta||{};let t='';
+  if(m.stale)t=`⚠️ Dữ liệu không đổi ${Math.max(1,Math.round((m.ago||0)/60))} phút${m.err?' và nguồn báo lỗi':''}. Số liệu có thể đã cũ nên hệ thống tạm ngưng ghi nhận dự đoán mới.`;
+  else if(m.err)t='Nguồn có báo lỗi nhưng dữ liệu vẫn đang thay đổi.';
+  return (t?`<div class="warn">${t}</div>`:'')+(m.updated?`<p class="note" style="padding:0 2px 8px">Nguồn cập nhật lúc ${esc(m.updated)} (giờ Việt Nam)</p>`:'')}
+const sigTxt=v=>v==='follow'?'theo':v==='break'?'gãy':'—';
+const pdTxt2=t=>t.du_doan?`<span class="pdx ${t.du_doan}">Dự đoán: ${esc(t.du_doan_text||BN[t.du_doan])}</span>`:'<span class="pdx none">Chưa có dự đoán</span>';
+function drawBac(){
+  const np=bac.filter(t=>t.du_doan).length;
+  let h=bacTabs()+bacBanner()+`<div class="seg fl"><button data-f="all" class="${bacF==='all'?'on':''}">Tất cả (${bac.length})</button><button data-f="pred" class="${bacF==='pred'?'on':''}">Có dự đoán (${np})</button></div>`+(bacLive.n?`<p class="note" style="padding:0 2px 10px">Đã chấm: ✅ ${bacLive.w} · ❌ ${bacLive.n-bacLive.w} · ${Math.round(bacLive.w*100/bacLive.n)}%</p>`:'')+'<div class="bg">';
+  bac.forEach((t,i)=>{if(bacF==='pred'&&!t.du_doan)return;h+=`<div class="card bt" data-i="${i}" style="--i:${Math.min(i,16)}"><div class="bh"><b>Bàn ${esc(t.ban)}</b><small>${esc(t.phien)} ván</small></div><div class="bpm">${miniPlate(t.ket_qua)}</div>${bar3(t)}<div class="bf">${pdTxt2(t)}<small>${esc(t.cau||'')}${t.conf?' · '+esc(t.conf):''}${t.live_n?' · ✅'+t.live_w+'/'+t.live_n:''}</small></div></div>`});
+  $('#main').innerHTML=h+'</div><p class="note" style="padding-top:12px">Chạm vào bàn để xem bảng châu lộ, đại lộ và các dự đoán gần đây của bàn đó. Dự đoán lấy từ nguồn, hệ thống chỉ đối chiếu với kết quả thật.</p>';
+  $('#main').className=animOn?'anim':'';animOn=false;
+  $$('.bt').forEach(b=>b.onclick=()=>openBac(+b.dataset.i));
+  $$('.seg.fl button').forEach(b=>b.onclick=()=>{bacF=b.dataset.f;lastKey='';drawBac()});
+  bacBind();
+  if($('#ovb').classList.contains('on')&&openBac.i!==undefined)openBac(openBac.i);
+}
+function drawBacLog(){
+  const d=bacLogData||{stats:{n:0,w:0,tie:0,pending:0},tables:[],items:[]},s=d.stats,pc=s.n?Math.round(s.w*100/s.n):null;
+  let h=bacTabs()+`<section class="card chart"><div class="k"><span>Dự đoán Baccarat đã chấm</span><span>${s.pending?'⏳ '+s.pending+' đang chờ':''}</span></div><div style="display:flex;align-items:baseline;gap:14px;margin-top:10px"><div style="font-size:40px;font-weight:700;letter-spacing:-.02em">${pc===null?'—':pc+'%'}</div><div style="font-size:14px;font-weight:600">✅ ${s.w} · ❌ ${s.n-s.w}${s.tie?' · ➖ '+s.tie+' hòa':''}</div></div><div class="note" style="padding-top:8px">Chỉ chấm ván ra Con hoặc Cái; ván Hòa không tính đúng hay sai. Dự đoán được ghi lại trước khi ván diễn ra.</div></section>`;
+  if(d.tables.length)h+=`<div class="sh">Theo từng bàn</div><section class="card list">${d.tables.slice(0,15).map(t=>{const p=Math.round(t.w*100/t.n);return `<div class="lb" style="padding:11px 16px"><div class="lbn">Bàn ${esc(t.ban)}<small>✅ ${t.w} · ❌ ${t.n-t.w}</small></div><div class="lbr">${p}%<small>${t.w}/${t.n}</small></div><div class="lbb"><i style="width:${p}%"></i><u></u></div></div>`}).join('')}</section>`;
+  h+=`<div class="sh">Chi tiết từng ván</div><section class="card list"><div class="row hd b4"><span>Bàn · Ván</span><span>Dự đoán</span><span>Kết quả</span><span style="text-align:right">Đ/S</span></div>`+(d.items.length?d.items.map(e=>`<div class="row b4"><div><b>Bàn ${esc(e.ban)}</b><small>Ván ${esc(e.van)} · ${esc(e.thoi_gian)}</small></div><div>${bpl(e.du_doan)}${e.conf?`<small>${esc(e.conf)}</small>`:''}</div><div>${e.ket_qua?bpl(e.ket_qua):'<span style="color:var(--mu)">chờ...</span>'}</div><div>${e.dung===true?'✅':e.dung===false?'❌':e.ket_qua?'➖':'⏳'}</div></div>`).join(''):'<div class="msg">Chưa có dự đoán nào được ghi nhận.<br><small>Để hệ thống chạy một lúc rồi quay lại.</small></div>')+'</section>';
+  $('#main').innerHTML=h;$('#main').className=animOn?'anim':'';animOn=false;bacBind();
+}
+function openBac(i){const t=bac[i];if(!t)return;openBac.i=i;const c=t.chuoi,cp=t.cau_phu;$('#bth').textContent=`Bàn ${t.ban} · ${t.phien} ván`;
+  $('#btb').innerHTML=`<div class="k"><span>Dự đoán theo nguồn</span><span>${c?'Chuỗi '+BN[c.side]+' ×'+c.len:''}</span></div><div style="font-size:28px;font-weight:700;margin:8px 0 2px" class="${t.du_doan==='P'?'tai':t.du_doan==='B'?'xiu':''}">${esc(t.du_doan_text||(t.du_doan?BN[t.du_doan]:'—'))}</div><div class="hs" style="color:var(--mu);font-size:12px">${esc(t.cau||'Chưa có cầu')}${t.conf?' · nguồn báo '+esc(t.conf):''}${t.live_n?' · đã chấm ✅'+t.live_w+'/'+t.live_n:''}</div>
+${cp?`<div class="meta">Tín hiệu phụ của nguồn: Mắt to <b>${sigTxt(cp.mat_to)}</b> · Đường nhỏ <b>${sigTxt(cp.duong_nho)}</b> · Đường gián <b>${sigTxt(cp.gian)}</b></div>`:''}
+<div class="kv"><div><span>Con</span><b class="tai">${t.con}</b></div><div><span>Cái</span><b class="xiu">${t.cai}</b></div><div><span>Hòa</span><b class="ok">${t.hoa}</b></div></div>${bar3(t)}
+${t.hist&&t.hist.length?`<h4>Dự đoán gần đây của bàn này</h4>${t.hist.map(e=>`<div class="lb" style="padding:8px 0;grid-template-columns:1fr auto"><div class="lbn" style="font-weight:600">Ván ${e.van}: ${BN[e.pred]} → ${e.res?BN[e.res]:'chờ...'}</div><div class="lbr" style="font-size:18px">${e.ok===true?'✅':e.ok===false?'❌':e.res?'➖':'⏳'}</div></div>`).join('')}`:''}
+<h4>Bảng châu lộ (tối đa 20 ván gần nhất)</h4><div class="bp" id="bpp">${t.ket_qua.split('').map(x=>`<i class="${x}">${x}</i>`).join('')}</div><h4>Đại lộ</h4>${bigRoad(t.ket_qua)}`;
+  $('#ovb').classList.add('on');['#bpp','#brr'].forEach(q=>{const e=$(q);if(e)e.scrollLeft=e.scrollWidth})}
+
+function renderGames(q){q=(q||'').toLowerCase();const m={},o=[];games.forEach(g=>{const b=g.brand||g.name;if(!m[b]){m[b]={name:b,list:[]};o.push(m[b])}m[b].list.push(g)});let h='';
+  o.forEach(b=>{const L=b.list.filter(g=>!q||(b.name+' '+g.kind+' '+g.name).toLowerCase().indexOf(q)>-1);if(!L.length)return;h+=`<h4>${esc(b.name)}</h4><div class="grid">${L.map(g=>`<button class="gt${String(g.id)===cur?' cur':''}" data-id="${g.id}">${esc(g.kind)}${g.online===false?' <span class="no">●</span>':''}</button>`).join('')}</div>`});
+  if(!q||'baccarat sảnh'.indexOf(q)>-1)h+=`<h4>Baccarat</h4><div class="grid"><button class="gt${cur==='bac'?' cur':''}" data-id="bac">Sảnh</button></div>`;
+  $('#gl').innerHTML=h||'<div class="msg">Không tìm thấy game</div>';
+  $$('.gt').forEach(b=>b.onclick=()=>{$('#ovg').classList.remove('on');pick(b.dataset.id)})}
+const openGames=()=>{$('#gq').value='';renderGames('');$('#ovg').classList.add('on')};
+const pc2=a=>a[0]?Math.round(a[1]*100/a[0])+'% ('+a[0]+')':'—';
+function drawStats(d){const g=d.games.filter(x=>x.n>0).sort((a,b)=>b.n-a.n),t=d.total;
+  let h=`<div class="sum"><div class="k" style="justify-content:center">Tổng tất cả game</div><b>${t.n?Math.round(t.w*100/t.n)+'%':'—'}</b><div style="color:var(--mu);font-size:12px;margin-top:2px">✅ ${t.w} đúng · ❌ ${t.n-t.w} sai</div></div>`;
+  h+=g.length?g.map(x=>{const p=Math.round(x.w*100/x.n);return `<div class="lb"><div class="lbn">${esc(x.brand+' · '+x.kind)}<small>✅ ${x.w} · ❌ ${x.n-x.w}</small></div><div class="lbr">${p}%<small>${x.w}/${x.n}</small></div><div class="lbb"><i style="width:${p}%"></i><u></u></div></div>`}).join(''):'<div class="msg">Chưa có dự đoán nào được chấm.<br><small>Để hệ thống chạy một lúc rồi quay lại.</small></div>';
+  $('#sb').innerHTML=h+'<p class="note" style="padding-top:12px">Vạch giữa = 50% (đoán mò). Chỉ tính dự đoán ghi nhận trước khi có kết quả.</p>'}
+function openStats(){$('#sb').innerHTML='<div class="msg">Đang tải...</div>';$('#ovs').classList.add('on');fetch('/api/stats').then(r=>r.json()).then(drawStats).catch(()=>{$('#sb').innerHTML='<div class="msg">Chưa tải được dữ liệu.</div>'})}
+let apiList=null,apiFlt='all',animOn=true,lastTop='',lastPredTxt='',tsT=null;
+const cuPrev={};
+function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');clearTimeout(tsT);tsT=setTimeout(()=>e.classList.remove('on'),1300)}
+function countUp(sel){if(typeof requestAnimationFrame!=='function')return;$$(sel+' [data-n]').forEach(e=>{const to=+e.dataset.n,s=e.dataset.s||'',k=e.dataset.k||'',from=cuPrev[k]!==undefined?cuPrev[k]:0,t0=performance.now();cuPrev[k]=to;if(from===to)return;const f=t=>{const p=Math.min(1,(t-t0)/700),v=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));e.textContent=v+s;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
+function moveInd(){const a=$('.tab.on'),i=$('#ind');if(a&&i&&a.offsetWidth){i.style.width=a.offsetWidth+'px';i.style.transform='translateX('+a.offsetLeft+'px)'}}
+const hl=j=>esc(j).replace(/(&quot;.*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b/g,(m,s,c,b)=>s?`<span class="${c?'jk':'jstr'}">${s}</span>${c||''}`:b?`<span class="jb">${m}</span>`:`<span class="jn">${m}</span>`);
+function copyTxt(t){try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t);return}}catch(e){}const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(x)}
+function tryEp(btn){const u=btn.dataset.u,box=btn.closest('.ep').querySelector('.rs');box.innerHTML='<div class="msg" style="padding:16px">Đang gọi...</div>';const t0=performance.now();
+  fetch(u).then(async r=>{const txt=await r.text(),ms=Math.round(performance.now()-t0);let p=txt;try{p=JSON.stringify(JSON.parse(txt),null,2)}catch(e){}
+    box.innerHTML=`<div class="stt"><b class="${r.ok?'ok':'no'}">${r.status} ${r.ok?'OK':'LỖI'}</b><span>${ms} ms</span><span>${(txt.length/1024).toFixed(1)} KB</span><button data-a="cj">Chép JSON</button></div><pre class="js">${hl(p)}</pre>`;
+    box.querySelector('[data-a=cj]').onclick=()=>{copyTxt(p);toast('Đã chép JSON ✅')}}).catch(()=>{box.innerHTML='<div class="msg" style="padding:16px">Không gọi được API này.</div>'})}
+function renderApi(q){q=(q||'').toLowerCase();const o=location.origin,m={},ord=[];let h='';
+  const all=apiList.items.map(i=>({t:i.brand+' · '+i.kind,s:i.slug,a:i.aliases,b:i.brand,p:i.hasPred,on:i.online})).concat(apiList.extra.map(e=>({t:e.name,s:e.slug,a:e.aliases,b:'BACCARAT',p:true,on:null})));
+  const F={all:()=>true,pred:i=>i.p,his:i=>!i.p,off:i=>i.on===false},cnt=k=>all.filter(F[k]).length;
+  all.filter(i=>F[apiFlt](i)&&(!q||(i.t+' '+i.s+' '+i.a.join(' ')).toLowerCase().indexOf(q)>-1)).forEach(i=>{(m[i.b]=m[i.b]||(ord.push(i.b),[])).push(i)});
+  h+=`<div class="k" style="margin:2px 2px 10px"><span>${all.length} đuôi API</span><span>${all.filter(i=>i.on===true).length} đang chạy</span></div>
+<details class="fd"><summary>Giải thích các trường JSON</summary><div><code>id</code> luôn là @dongnetsun · <code>game</code> tên game · <code>phien_truoc</code>, <code>xuc_xac</code>, <code>ket_qua</code> phiên vừa có kết quả · <code>phien_hien_tai</code> phiên đang chạy · <code>du_doan</code> dự đoán · <code>do_tin_cay_api</code> con số do nguồn tự báo, KHÔNG phải xác suất đúng · <code>cau</code> nhãn cầu của nguồn · <code>ti_le_dung_thuc_te</code> tỉ lệ đúng đo từ kết quả thật.</div></details>
+<div class="seg" id="afl">${[['all','Tất cả'],['pred','Có dự đoán'],['his','Chỉ lịch sử'],['off','Đang lỗi']].map(x=>`<button data-f="${x[0]}" class="${apiFlt===x[0]?'on':''}">${x[1]} ${cnt(x[0])}</button>`).join('')}</div>`;
+  ord.forEach(b=>{h+=`<h4>${esc(b)}</h4>`+m[b].map(i=>{const u=o+'/'+i.s;return `<div class="ep"><div class="eh"><span class="mt2">GET</span><div class="en"><b>${esc(i.t)}</b><code>/${esc(i.s)}</code></div><i class="dt ${i.on===true?'o':i.on===false?'f':''}"></i><svg class="cv" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="ex"><div class="url">${esc(u)}</div>${i.a.length?`<small class="alt">Đuôi phụ: ${i.a.map(x=>'/'+esc(x)).join(' · ')}</small>`:''}<div class="eb"><button data-u="${esc(u)}" data-a="c">Sao chép URL</button><button data-u="${esc(u)}" data-a="k">cURL</button><button data-u="${esc(u)}" data-a="t" class="pri">▶ Thử ngay</button><button data-u="${esc(u)}" data-a="o">Mở</button></div><div class="rs"></div></div></div>`}).join('')});
+  $('#al').innerHTML=h;
+  if(!ord.length)$('#al').innerHTML+='<div class="msg">Không tìm thấy</div>';
+  $$('#afl button').forEach(b=>b.onclick=()=>{apiFlt=b.dataset.f;renderApi($('#aq').value)});
+  $$('#al .eh').forEach(e=>e.onclick=()=>e.parentNode.classList.toggle('open'));
+  $$('#al .eb button').forEach(b=>b.onclick=()=>{const u=b.dataset.u,a=b.dataset.a;if(a==='o')return window.open(u,'_blank');if(a==='t')return tryEp(b);copyTxt(a==='k'?`curl -s '${u}'`:u);toast(a==='k'?'Đã chép lệnh cURL ✅':'Đã chép URL ✅')})}
+function openApi(){$('#aq').value='';$('#ova').classList.add('on');if(apiList)return renderApi('');$('#al').innerHTML='<div class="msg">Đang tải...</div>';fetch('/api/endpoints').then(r=>r.json()).then(d=>{apiList=d;renderApi('')}).catch(()=>{$('#al').innerHTML='<div class="msg">Chưa tải được danh sách.</div>'})}
+const closeOn=(ov,btn)=>{$(btn).onclick=()=>{$(ov).classList.remove('on');if(ov==='#ovb')openBac.i=undefined};$(ov).onclick=e=>{if(e.target===$(ov)){$(ov).classList.remove('on');if(ov==='#ovb')openBac.i=undefined}}};
+closeOn('#ovg','#gc');closeOn('#ovs','#sc');closeOn('#ovb','#bc');closeOn('#ova','#ac');
+$('#dg').onclick=openGames;$('#rf').onclick=()=>{lastKey='';load()};$('#da').onclick=openApi;$('#aq').oninput=function(){if(apiList)renderApi(this.value)};$('#ds2').onclick=openStats;
+$('#gq').oninput=function(){renderGames(this.value)};
+chips();loadGames();pick(cur);if(typeof addEventListener==='function')addEventListener('resize',moveInd);
+</script>
+</body>
+</html>
